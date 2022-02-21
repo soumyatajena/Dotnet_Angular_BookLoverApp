@@ -452,3 +452,7 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+## ignore appsettings to push to GitHub
+appsettings.json
+appsettings.Development.json
