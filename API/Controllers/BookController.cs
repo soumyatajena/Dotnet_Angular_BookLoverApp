@@ -25,14 +25,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBooksById(int id)
-        {
-            return await context.Books.FindAsync(id);
-            //return await context.Books.Where(book => book.Id == id).FirstOrDefaultAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBooksByName(int id)
+        public async Task<ActionResult<Book>> GetBookById(int id)
         {
             return await context.Books.FindAsync(id);
             //return await context.Books.Where(book => book.Id == id).FirstOrDefaultAsync();
