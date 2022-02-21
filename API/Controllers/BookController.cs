@@ -30,5 +30,12 @@ namespace API.Controllers
             return await context.Books.FindAsync(id);
             //return await context.Books.Where(book => book.Id == id).FirstOrDefaultAsync();
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Book>> GetBooksByName(int id)
+        {
+            return await context.Books.FindAsync(id);
+            //return await context.Books.Where(book => book.Id == id).FirstOrDefaultAsync();
+        }
     }
 }
