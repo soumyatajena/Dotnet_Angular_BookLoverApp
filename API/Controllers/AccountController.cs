@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using API.DTOs;
 using Microsoft.EntityFrameworkCore;
-
+using API.Interfaces;
 
 namespace API.Controllers
 {
@@ -14,13 +14,15 @@ namespace API.Controllers
     public class AccountController:BaseApiController
     {
         private readonly DataContext context;
-        public AccountController(DataContext context)
+        private readonly ITokenService _tokenService;        
+        public AccountController(DataContext context,ITokenService tokenService)
         {
             this.context=context;
+            _tokenService=tokenService;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(RegisterDto registeredDto)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registeredDto)
         {
             //using - disposal of this object implicitly once class's work is done
             //when a class is called with Using statement - it calls the dispose() which implements IDisposable interface
@@ -40,12 +42,16 @@ namespace API.Controllers
 
             this.context.Users.Add(user);
             await this.context.SaveChangesAsync();
-            return user;
+            return new UserDto
+            {
+                UserName=user.UserName,
+                Token=_tokenService.CreateToken(user)
+            };
 
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user= await this.context.Users
                                 .SingleOrDefaultAsync(x=>x.UserName==loginDto.UserName);
@@ -61,7 +67,11 @@ namespace API.Controllers
                      return Unauthorized("Invalid Password");
                 }
             }
-            return user;
+            return new UserDto
+            {
+                UserName=user.UserName,
+                Token=_tokenService.CreateToken(user)
+            };
 
         }
         private async Task<bool> UserExists(string userName)
