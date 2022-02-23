@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Book-Lover App</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">WishList</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">BookList</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Messages</a>
+            </li>
+        </ul>
+        <form [formGroup]="loginForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="onSubmit()">
+            <input name="userName" class="form-control mr-sm-2" type="text" placeholder="Username"  formControlName="userName">
+            <input name="password" class="form-control mr-sm-2" type="text" placeholder="Password" formControlName="password">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!loginForm.valid">Login</button>
+        </form>
+    </div>
+</nav>

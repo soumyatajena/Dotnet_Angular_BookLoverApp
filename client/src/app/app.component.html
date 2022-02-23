@@ -1,6 +1,8 @@
-<h2>{{title}}</h2>
+<app-nav></app-nav>
 
-<h4>The List of Books</h4>
-<ul>
-  <li *ngFor="let book of books">{{book.id}} - {{book.bookName}}</li>
-</ul>
+
+<div class="container" style="margin-top: 200px;">
+  <ul>
+    <li *ngFor="let book of books">{{book.id}} - {{book.bookName}}</li>
+  </ul>
+</div>
