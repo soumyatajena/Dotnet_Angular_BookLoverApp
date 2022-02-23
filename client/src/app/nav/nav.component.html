@@ -12,9 +12,9 @@
                 <a class="nav-link" href="">Messages</a>
             </li>
         </ul>
-        <form [formGroup]="loginForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="login()">
             <input name="userName" class="form-control mr-sm-2" type="text" placeholder="Username"  formControlName="userName">
-            <input name="password" class="form-control mr-sm-2" type="text" placeholder="Password" formControlName="password">
+            <input name="password" class="form-control mr-sm-2" type="password" placeholder="Password" formControlName="password">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!loginForm.valid">Login</button>
         </form>
     </div>
