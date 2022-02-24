@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
         <a class="navbar-brand" href="#">Book-Lover App</a>
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" *ngIf="loggedIn">
             <li class="nav-item">
                 <a class="nav-link" href="#">WishList</a>
             </li>
@@ -11,8 +11,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="">Messages</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="logout()" href="#">Logout</a>
+            </li>
         </ul>
-        <form [formGroup]="loginForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="login()">
+        <div class="dropdown" *ngIf="loggedIn" bsDropdown>
+            <a class="dropdown-toggle text-light" bsDropdownToggle>Welcome {{loginForm.value.userName}}</a>
+            <div class="dropdown-menu mt-3" *bsDropdownMenu>
+                <a class="dropdown-item">Edit Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="logout()">Logout</a>
+            </div>
+        </div>
+        <form *ngIf="!loggedIn" [formGroup]="loginForm" class="form-inline mt-2 mt-md-0" autocomplete="off" (ngSubmit)="login()">
             <input name="userName" class="form-control mr-sm-2" type="text" placeholder="Username"  formControlName="userName">
             <input name="password" class="form-control mr-sm-2" type="password" placeholder="Password" formControlName="password">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!loginForm.valid">Login</button>

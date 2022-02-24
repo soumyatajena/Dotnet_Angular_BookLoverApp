@@ -13,23 +13,46 @@ export class NavComponent implements OnInit {
   constructor(private fb:FormBuilder,private accountService:AccountService) { }
 
   ngOnInit(): void {
+    this.getCurrentUser();
   }
   loginForm = this.fb.group({
     userName: [''],
     password: [''],
   });
+
   login() {
     // TODO: Use EventEmitter with form value
     console.warn(this.loginForm.value);
-    this.accountService.login(this.loginForm.value).subscribe(response=>
-      {
+    this.accountService.login(this.loginForm.value).subscribe({
+      next:(response)=>{
         console.log(response);
         this.loggedIn=true;
         console.log(this.loggedIn);
       },
-      error=>
+      error:(error)=>
       {
         console.log(error);
-      });
+      }
+    });
+  }
+
+  getCurrentUser()
+  {
+    this.accountService.currentUser$.subscribe({
+      next:(user)=>
+      {
+        this.loggedIn=!!user;
+      },
+      error:(error)=>
+      {
+        console.log(error);
+      }
+    });
+  }
+
+  logout()
+  {
+    this.accountService.logout();
+    this.loggedIn=false;
   }
 }
